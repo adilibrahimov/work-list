@@ -2,14 +2,18 @@ import React, { Component } from 'react'
 
 export default class Details extends Component {
     render() {
+
         const pageIndex = this.props.pageIndex;
-        const {name, username, email, address, phone, website,
+        const { email, address, phone, website,
             company } = this.props.data[pageIndex];
+        const { title, body } = this.props.posts[pageIndex];
+        console.log(this.props.posts[1])
+        console.log(this.props.data[1])
 
         return (
             <div>
-                <p><strong>Name:</strong> {name}</p>
-                <p><strong>Last name:</strong> {username}</p>
+                <p><strong>Title:</strong> {title}</p>
+                <p><strong>Body:</strong> {body}</p>
                 <p><strong>email:</strong> {email}</p>
                 <p><strong>Address</strong></p>
                 <p><strong>Street:</strong> {address.street}</p>

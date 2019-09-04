@@ -1,33 +1,66 @@
 import React, { Component } from 'react'
 import List from "./List";
-import data from "./Data";
 export default class App extends Component {
-    state = {
-        data: data,
-        index: 0
+    constructor(props) {
+        super(props)
+        this.state = {
+            data: [],
+            posts: [],
+            isLoaded: false,
+            index: 0
+        }
     }
+
+    componentDidMount() {
+        fetch('http://jsonplaceholder.typicode.com/users')
+            .then(res => res.json())
+            .then(json => {
+                this.setState({
+                    // isLoaded: false,
+                    data: json
+                })
+            })
+
+        fetch('http://jsonplaceholder.typicode.com/posts')
+            .then(ress => ress.json())
+            .then(jsonn => {
+                this.setState({
+                    isLoaded: true,
+                    posts: jsonn
+                })
+            })
+    }
+
     handleChenge = (index) => {
         this.setState({
             index: index
         })
+    }
 
-    }
     deleteObject = (index) => {
-        data.splice(index, 1)
+        this.state.data.splice(index, 1)
         this.setState({
-             data: data  
-        })  
+            data: this.state.data
+        })
     }
+    
     render() {
-        console.log(this.state.data)
-        return (
-            <div>
-                <List data={this.state.data} 
-                handleChenge={this.handleChenge} 
-                pageIndex={this.state.index} 
-                deleteObject={this.deleteObject}
-                />
-            </div>
-        )
+
+        var { isLoaded } = this.state
+        if (!isLoaded) {
+            return <div style={{ marginLeft: "50%", marginTop: "50px", fontSize: "36px" }}>Loading...</div>
+        }
+        else {
+            return (
+                <div>
+                    <List data={this.state.data}
+                        posts={this.state.posts}
+                        handleChenge={this.handleChenge}
+                        pageIndex={this.state.index}
+                        deleteObject={this.deleteObject}
+                    />
+                </div>
+            )
+        }
     }
 }

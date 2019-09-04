@@ -3,8 +3,9 @@ import Page from "./Page";
 import Details from "./Details";
 export default class List extends Component {
     render() {
-        const { data, handleChenge, pageIndex} = this.props;
-        const {deleteObject} = this.props;
+        const { data, handleChenge, pageIndex, posts } = this.props;
+        const { deleteObject } = this.props;
+
         return (
             <div className="container">
                 <div className="row">
@@ -25,11 +26,12 @@ export default class List extends Component {
                                     data.map((data, index) => {
 
                                         return (
-                                            <Page key={index} 
-                                            data={data} 
-                                            index={index} 
-                                            handleChenge={handleChenge}
-                                            deleteObject={deleteObject}
+                                            <Page key={index}
+                                                posts={posts}
+                                                data={data}
+                                                index={index}
+                                                handleChenge={handleChenge}
+                                                deleteObject={deleteObject}
                                             />
                                         )
                                     })
@@ -38,7 +40,7 @@ export default class List extends Component {
                         </table>
                     </div>
                     <div className="col-md-4 p-2">
-                        <Details data={data} pageIndex={pageIndex}/>
+                        <Details data={data} pageIndex={pageIndex} posts={posts} />
                     </div>
                 </div>
             </div>
